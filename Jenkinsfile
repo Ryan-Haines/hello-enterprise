@@ -15,7 +15,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build registry
+                    catchError(buildResult: 'UNSTABLE') {
+                        docker.build registry
+                    }
                 }
             }
         }
@@ -24,7 +26,9 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("http://${registry}") {
-                        docker.image(registry).push()
+                        catchError(buildResult: 'UNSTABLE') {
+                            docker.image(registry).push()
+                        }
                     }
                 }
             }
