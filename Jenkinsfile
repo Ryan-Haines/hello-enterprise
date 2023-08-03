@@ -1,17 +1,33 @@
 pipeline {
-    agent any 
-    
+    agent any
+
+    environment {
+        registry = 'registry:5000/my-enterprise-app'
+    }
+
     stages {
-        stage('Build Docker Image') {
+        stage('Clone Git') {
             steps {
-                sh 'docker build -t my-react-app .'
+                checkout scm
             }
         }
-        stage('Run Docker Container') {
+        
+        stage('Build Docker Image') {
             steps {
-                sh 'docker run -d -p 80:80 my-react-app'
+                script {
+                    docker.build registry
+                }
+            }
+        }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry("http://${registry}") {
+                        docker.image(registry).push()
+                    }
+                }
             }
         }
     }
 }
-
