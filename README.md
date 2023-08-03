@@ -4,11 +4,20 @@ Hello-world, with all the enterprise features
 install nodeJS on raspberry pi:
 
 ```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-source ~/.bashrc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | zsh
 source ~/.zshrc
 nvm install node
 ```
+
+install workaround for unmaintained hello-world for react:
+`npm install --save-dev @babel/plugin-proposal-private-property-in-object`
+
+install the rest of the requirements
+`npm install`
+
+test that the build works:
+`npm run build`
+
 
 Install Docker prerequisites:
 ```
@@ -45,3 +54,7 @@ Test Docker installation:
 
 docker --version
 docker run hello-world
+
+now configure buildkit:
+
+`echo "export DOCKER_BUILDKIT=1" >> ~/.zshrc `
