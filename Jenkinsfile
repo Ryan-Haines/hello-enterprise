@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            label 'docker-agent'
+        }
+    }
 
     environment {
         registry = 'registry:5000/my-enterprise-app'

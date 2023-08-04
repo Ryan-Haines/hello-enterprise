@@ -86,13 +86,6 @@ great, it works!
 
 `kubectl apply -f registry-deployment.yaml`
 
-to prune builds to this registry:
+## jenkins stuff
 
-```
-docker images --format '{{.Repository}}:{{.Tag}}' | grep -v ':latest' | xargs -r docker rmi
-```
-
-REPOS=$(curl -s -X GET http://localhost:5000/v2/_catalog | jq -r '.repositories[]')
-
-
-navigate to your jenkins panel 
+in jenkins, add the plugins for docker. Select the top 5ish including the differnet pipeline plugins for docker compose, build etc.
